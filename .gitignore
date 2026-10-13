@@ -1,0 +1,16 @@
+.gradle/
+build/
+bin/
+.dev/
+*.log
+.DS_Store
+.env
+.env.development
+.env.production
+.env.test
+.env.local
+docs/
+docs/*.md
+docs/**/*.md
+docs/MANAGER_CONTRACT.md
+AGENTS.md

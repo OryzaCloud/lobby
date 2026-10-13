@@ -1,0 +1,12 @@
+services:
+  lobby:
+    build: .
+    network_mode: "host"
+    environment:
+      - APP_ENV=development
+      - LOBBY_BIND=127.0.0.1:25580
+      - AMQP_URL=amqp://guest:guest@127.0.0.1:5672/
+      - MESSAGING_HMAC_KEYS=dev-key-1:01234567890123456789012345678901
+      - MESSAGING_HMAC_ACTIVE_KEY_ID=dev-key-1
+      - LOBBY_TOKEN_KEYS=dev-token-1:abcdef0123456789abcdef0123456789
+    restart: unless-stopped

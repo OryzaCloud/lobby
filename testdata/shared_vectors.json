@@ -1,0 +1,84 @@
+{
+  "messaging_vectors": [
+    {
+      "name": "standard_route_create",
+      "message_id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+      "timestamp": 1704110400,
+      "type": "network.route.create",
+      "body": "{\"data\":{\"server_id\":\"srv_123\",\"subdomain\":\"play\"}}",
+      "key_id": "k1",
+      "secret": "0123456789012345678901234567890123",
+      "expected_sig": "f5e23ef4b68c7a323bf9b049a111591f8b1e9efe8f24f753476c6c67b92a822a"
+    },
+    {
+      "name": "lobby_heartbeat",
+      "message_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "timestamp": 1704110405,
+      "type": "lobby.instance.heartbeat",
+      "body": "{\"data\":{\"instance_id\":\"lobby-1\",\"capacity\":500}}",
+      "key_id": "k1",
+      "secret": "0123456789012345678901234567890123",
+      "expected_sig": "41070448029a531985b9e695fd2aa9cccce4811720eb2b1b25c6d46ec9e3991a"
+    },
+    {
+      "name": "route_ready",
+      "message_id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+      "timestamp": 1704110410,
+      "type": "lobby.route.ready",
+      "body": "{\"data\":{\"route_id\":\"route-123\",\"transfer_host\":\"play.localhost\",\"transfer_port\":25565}}",
+      "key_id": "k1",
+      "secret": "0123456789012345678901234567890123",
+      "expected_sig": "a36115e6d7dffe70c2a8238511a959c97e77e940c13b9b9f23b037c99fdf6147"
+    }
+  ],
+  "token_vectors": [
+    {
+      "name": "valid_token",
+      "hostname": "play.localhost",
+      "route_id": "11111111-2222-3333-4444-555555555555",
+      "issued_at": 1704110400,
+      "nonce": "a1b2c3d4e5f60718",
+      "key_id": "tk1",
+      "secret": "abcdef0123456789abcdef0123456789",
+      "expected_sig": "OWS-d6iI3KivSonY7nCNpRCferIKHVz0BPQKYdrWQB8",
+      "expected_address": "play.localhost\u0000OLB1\u000011111111-2222-3333-4444-555555555555\u00001704110400\u0000a1b2c3d4e5f60718\u0000tk1\u0000OWS-d6iI3KivSonY7nCNpRCferIKHVz0BPQKYdrWQB8",
+      "description": "Valid token ready for verification"
+    },
+    {
+      "name": "wrong_signature",
+      "hostname": "play.localhost",
+      "route_id": "11111111-2222-3333-4444-555555555555",
+      "issued_at": 1704110400,
+      "nonce": "a1b2c3d4e5f60718",
+      "key_id": "tk1",
+      "secret": "differentsecret0123456789abcdef01",
+      "expected_sig": "dVOtnydxiwU0KdKIoCtjJy6ySrRWIBcu0TXIDFgVy7w",
+      "expected_address": "play.localhost\u0000OLB1\u000011111111-2222-3333-4444-555555555555\u00001704110400\u0000a1b2c3d4e5f60718\u0000tk1\u0000dVOtnydxiwU0KdKIoCtjJy6ySrRWIBcu0TXIDFgVy7w",
+      "description": "Generated with different secret so signature verification fails"
+    },
+    {
+      "name": "expired_token",
+      "hostname": "play.localhost",
+      "route_id": "11111111-2222-3333-4444-555555555555",
+      "issued_at": 1704110300,
+      "nonce": "feedfacecafe1234",
+      "key_id": "tk1",
+      "secret": "abcdef0123456789abcdef0123456789",
+      "expected_sig": "c684rycl4iRMvZiuTRkZ0xBjhqks4YawMCsTrTvXhv0",
+      "expected_address": "play.localhost\u0000OLB1\u000011111111-2222-3333-4444-555555555555\u00001704110300\u0000feedfacecafe1234\u0000tk1\u0000c684rycl4iRMvZiuTRkZ0xBjhqks4YawMCsTrTvXhv0",
+      "description": "Issued 100 seconds in past, beyond max age window"
+    },
+    {
+      "name": "tampered_route_id",
+      "hostname": "play.localhost",
+      "route_id": "99999999-8888-7777-6666-555555555555",
+      "issued_at": 1704110400,
+      "nonce": "a1b2c3d4e5f60718",
+      "key_id": "tk1",
+      "secret": "abcdef0123456789abcdef0123456789",
+      "expected_sig": "1T_km8IATaWoRd3MhlZ1B4KpZemhPWWwnhR5mmNnyhI",
+      "expected_address": "play.localhost\u0000OLB1\u000099999999-8888-7777-6666-555555555555\u00001704110400\u0000a1b2c3d4e5f60718\u0000tk1\u00001T_km8IATaWoRd3MhlZ1B4KpZemhPWWwnhR5mmNnyhI",
+      "description": "Signature made for different route id"
+    }
+  ]
+}
